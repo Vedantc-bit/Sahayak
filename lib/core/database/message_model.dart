@@ -9,9 +9,17 @@ part 'message_model.g.dart';
 @Collection(ignore: {'copyWith'})
 class Message with _$Message {
   const Message._();
+
+  external Id get isarId;
+  external String get id;
+  external String get content;
+  external String get senderId;
+  external DateTime get timestamp;
+  external bool get isSent;
   
   const factory Message({
-    @Id() @Default('') String id,
+    @Default(Isar.autoIncrement) Id isarId,
+    required String id,
     required String content,
     required String senderId,
     required DateTime timestamp,
@@ -32,21 +40,4 @@ class Message with _$Message {
       isSent: isSent,
     );
   }
-
-  factory Message.fromJson(Map<String, dynamic> json) => _$MessageFromJson(json);
-
-  // Add this to make Isar work with freezed
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is Message &&
-          runtimeType == other.runtimeType &&
-          id == other.id &&
-          content == other.content &&
-          senderId == other.senderId &&
-          timestamp == other.timestamp &&
-          isSent == other.isSent;
-
-  @override
-  int get hashCode => Object.hash(id, content, senderId, timestamp, isSent);
 }
