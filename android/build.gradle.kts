@@ -22,3 +22,19 @@ subprojects {
 tasks.register<Delete>("clean") {
     delete(rootProject.layout.buildDirectory)
 }
+subprojects {
+    afterEvaluate {
+        // Fix for Isar namespace issue in Gradle 8+
+        val android = extensions.findByName("android")
+        if (android != null) {
+            try {
+                val baseExt = android as com.android.build.gradle.BaseExtension
+                if (baseExt.namespace == null) {
+                    baseExt.namespace = group.toString()
+                }
+            } catch (e: Exception) {
+                // Ignore casting errors
+            }
+        }
+    }
+}
