@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'features/chat/ui/chat_home_screen.dart';
+import 'features/home/ui/tactical_home_screen.dart';
+import 'theme/tactical_theme.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
@@ -13,12 +14,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Sahayak',
-      theme: ThemeData(
-        primarySwatch: Colors.teal,
-        fontFamily: 'Roboto',
-      ),
+      theme: TacticalTheme.darkTheme,
       debugShowCheckedModeBanner: false,
-      home: const ChatHomeScreen(),
+      home: const TacticalHomeScreen(),
     );
   }
 }
